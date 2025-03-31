@@ -81,14 +81,16 @@ weatherIcon.src = weatherImages[data.weather[0].main] || "images/default.png";
     }
 }
 
-    searchBtn.addEventListener("click",()=>{
+searchBox.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") { 
         if (searchBox.value.trim() === "") {
-        alert("Please enter a city name.");
-        return;
-    }
-    checkWeather(searchBox.value);
+            alert("Please enter a city name.");
+            return;
+        }
         checkWeather(searchBox.value);
-    })
+    }
+});
+
     
     </script>
 </body>
