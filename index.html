@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather Prediction Using HTML,CSS,JAVA SCRIPt</title>
+    <title>ClimaCheck - Weather App</title>
     <link rel="stylesheet"  href="style.css">
 </head>
 <body>
 <div class="card">
     <div class="search">
-        <input type="text" placeholder=" enter city name" spellcheck="false">
-        <button><img src="images/search.png"></button>
+        <input type="text" placeholder="Enter City Name" spellcheck="false">
+        <button><img src="images/search.png" alt="search"></button>
     </div>
     <div class="error">
         <p>Invalid city name</p>
@@ -59,19 +59,16 @@
         document.querySelector(".humidity").innerHTML = data.main.humidity + "%";
         document.querySelector(".wind").innerHTML = data.wind.speed + " km/hr";
 
-        if (data.weather[0].main == "Clouds") {
-            weatherIcon.src = "images/clouds.png";
-        } else if (data.weather[0].main == "Clear") {
-            weatherIcon.src = "images/clear.png";
-        } else if (data.weather[0].main == "Rain") {
-            weatherIcon.src = "images/rain.png";
-        } else if (data.weather[0].main == "Drizzle") {
-            weatherIcon.src = "images/drizzle.png";
-        } else if (data.weather[0].main == "Mist") {
-            weatherIcon.src = "images/mist.png";
-        }
+        const weatherImages = {
+    "Clouds": "images/clouds.png",
+    "Clear": "images/clear.png",
+    "Rain": "images/rain.png",
+    "Drizzle": "images/drizzle.png",
+    "Mist": "images/mist.png"
+};
 
-        // Show weather details and hide error message
+weatherIcon.src = weatherImages[data.weather[0].main] || "images/default.png";
+
         document.querySelector(".weather").style.display = "block";
         document.querySelector(".error").style.display = "none";
 
@@ -85,9 +82,14 @@
 }
 
     searchBtn.addEventListener("click",()=>{
+        if (searchBox.value.trim() === "") {
+        alert("Please enter a city name.");
+        return;
+    }
+    checkWeather(searchBox.value);
         checkWeather(searchBox.value);
     })
-    checkWeather();
+    
     </script>
 </body>
 </html>
